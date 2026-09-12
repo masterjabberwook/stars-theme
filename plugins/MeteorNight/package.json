@@ -1,0 +1,11 @@
+{
+  "name": "MeteorNight",
+  "description": "Tema nocturno glassmorphism para TIDAL con lluvia animada de meteoritos.",
+  "homepage": "https://github.com/masterjabberwook/TidaLuna-Meteor-Night",
+  "author": {
+    "name": "Antigravity",
+    "url": "https://github.com/masterjabberwook"
+  },
+  "exports": "./src/index.ts",
+  "type": "module"
+}

@@ -1,0 +1,225 @@
+:root {
+    /* Fondo Nivel 1: Cielo Nocturno */
+    --bg-night-sky: #030612; /* Muy oscuro, base */
+    --bg-night-gradient: #030612;
+
+    /* Nivel 2: Paneles de Cristal (Glassmorphism) */
+    --glass-panel-dark: rgba(10, 15, 30, 0.30);
+    --glass-panel-light: rgba(15, 22, 45, 0.45);
+    --glass-hover: rgba(255, 255, 255, 0.05);
+    
+    /* Efectos Cristal */
+    --glass-blur: blur(18px) saturate(130%);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    
+    /* Textos (Legibilidad) */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.5);
+
+    /* Acentos */
+    --accent-glow: 0 0 10px rgba(255, 255, 255, 0.2);
+    --accent-blue: #c0d8ff;
+    
+    /* AnimaciÃ³n */
+    --transition-base: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =========================================================
+   CAPA 1: CIELO NOCTURNO (FONDO GENERAL)
+   ========================================================= */
+body,
+#wimp,
+main,
+[class^="_mainContainer"] {
+    background-color: transparent !important;
+    background-image:
+        linear-gradient(rgba(3, 6, 18, 0.25), rgba(3, 6, 18, 0.42)),
+        url("__METEOR_NIGHT_NEBULA__") !important;
+    background-position: center, 50% 50% !important;
+    background-repeat: no-repeat !important;
+    background-size: cover, 118% auto !important;
+    background-attachment: fixed !important;
+    color: var(--text-primary);
+}
+
+/* =========================================================
+   CAPA 2: INTERFAZ GLASSMORPHISM
+   ========================================================= */
+
+/* Sidebar, Player y Encabezados */
+#sidebar,
+[class^="_sidebarWrapper"],
+#footerPlayer,
+[class^="_bar_"],
+[class*="smallHeader"],
+[class*="playQueueWrapper"],
+[class*="dropdown"],
+[class*="menu"],
+[class*="modal"] {
+    background: var(--glass-panel-dark) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border-right: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+}
+
+/* Bordes superiores para reproductor */
+#footerPlayer {
+    border-top: var(--glass-border);
+    border-right: none;
+}
+
+/* Tarjetas y Contenedores secundarios (Ãlbumes, Playlists) */
+[data-test="grid-item"],
+[class*="gridItem"],
+[class*="card"],
+[class*="Card"],
+[class*="tile"],
+[class*="Tile"],
+[class*="feed"] [class*="item"],
+[class*="Feed"] [class*="Item"],
+[class*="listItem"],
+[class*="ListItem"] {
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+/* Capas internas que TIDAL usa para el fondo de recomendaciones. */
+[data-meteor-night-recommendation-transparent="true"]::before,
+[data-meteor-night-recommendation-transparent="true"]::after {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+}
+
+/* =========================================================
+   PORTADAS E IMÃGENES (No transparentes)
+   ========================================================= */
+[data-test="grid-item"] img,
+[class*="gridItem"] img {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================================
+   HOVER Y DINAMISMO (Tarjetas e items de lista)
+   ========================================================= */
+/* Oculta únicamente el control flotante de reproducción de las portadas. */
+[data-test="grid-item"] [class*="playButton"],
+[data-test="grid-item"] [class*="play-button"],
+[data-test="grid-item"] [data-test*="play"],
+[data-test="grid-item"] [aria-label*="Play"],
+[data-test="grid-item"] [aria-label*="Reproducir"],
+[class*="gridItem"] [class*="playButton"],
+[class*="gridItem"] [class*="play-button"],
+[class*="gridItem"] [data-test*="play"],
+[class*="gridItem"] [aria-label*="Play"],
+[class*="gridItem"] [aria-label*="Reproducir"] {
+    display: none !important;
+}
+
+/* TIDAL cambia los nombres de clase con frecuencia; esta regla cubre su botón overlay. */
+[data-test="grid-item"] button,
+[class*="gridItem"] button {
+    display: none !important;
+}
+
+[class*="trackListItem"]:hover {
+    background: transparent !important;
+    box-shadow: none;
+}
+
+[class*="trackListItem"] {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    transition: var(--transition-base);
+}
+
+/* =========================================================
+   PÃGINAS DE ARTISTAS
+   ========================================================= */
+/* Mantener la imagen grande del artista como fondo con un gradiente superpuesto */
+[class*="artistHeader"] {
+    position: relative;
+    background-color: transparent !important;
+}
+[class*="artistHeader"]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(3, 6, 18, 0.2), var(--bg-night-sky));
+    pointer-events: none;
+}
+
+/* =========================================================
+   SCROLLBAR MINIMALISTA
+   ========================================================= */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: transparent;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* =========================================================
+   BOTONES Y CONTROLES (Blancos/Grises)
+   ========================================================= */
+button,
+[role="button"],
+[class*="button"] {
+    transition: var(--transition-base) !important;
+}
+
+[class*="progressBar"] [class*="progressFill"],
+[class*="slider"] [class*="fill"],
+[class*="volumeBar"] [class*="fill"] {
+    background-color: var(--accent-blue) !important;
+    box-shadow: var(--accent-glow) !important;
+}
+
+/* =========================================================
+   TEXTOS Y LEGIBILIDAD
+   ========================================================= */
+* {
+    color: var(--text-primary);
+}
+[data-wave-color=textSecondary],
+[class*="subtitle"],
+[class*="secondaryText"] {
+    color: var(--text-secondary) !important;
+}
+[data-wave-color=textTertiary] {
+    color: var(--text-muted) !important;
+}
+
+/* Meteoritos: la animaciÃ³n Web Animations API modifica solo transform y opacity. */
+.meteor-night-star {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(200, 230, 255, 0.4) 50%, rgba(255, 255, 255, 1) 100%);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(200, 230, 255, 0.3);
+    opacity: 0;
+    transform: rotate(-45deg) translate3d(0, 0, 0);
+    will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .meteor-night-star {
+        display: none;
+    }
+}
